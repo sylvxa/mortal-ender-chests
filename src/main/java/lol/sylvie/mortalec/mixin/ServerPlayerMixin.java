@@ -2,6 +2,7 @@ package lol.sylvie.mortalec.mixin;
 
 import com.mojang.authlib.GameProfile;
 import lol.sylvie.mortalec.MortalEnderChests;
+import net.minecraft.core.NonNullList;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
@@ -43,10 +44,13 @@ public abstract class ServerPlayerMixin extends Player {
 		}
 
 		PlayerEnderChestContainer enderChest = this.getEnderChestInventory();
-		int enderChestSize = enderChest.items.size();
-		long filledSlots = enderChest.items.stream().filter((i) -> !i.isEmpty()).count();
+		NonNullList<ItemStack> items = enderChest.getItems();
+
+		int enderChestSize = enderChest.getContainerSize();
+		long filledSlots = items.stream().filter((i) -> !i.isEmpty()).count();
+
 		if (MortalEnderChests.config.dropSlots >= filledSlots) {
-			for (int i = 0; i < enderChest.items.size(); i++) {
+			for (int i = 0; i < enderChestSize; i++) {
 				dropItemFrom(enderChest, i);
 			}
 		} else {
