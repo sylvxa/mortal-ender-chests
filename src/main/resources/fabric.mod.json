@@ -1,0 +1,42 @@
+{
+	"schemaVersion": 1,
+	"id": "mortal-echests",
+	"version": "${version}",
+	"name": "Mortal Ender Chests",
+	"description": "Makes Ender Chest inventories drop on death",
+	"authors": [
+		{
+			"name": "sylvxa",
+			"contact": {
+				"email": "me@sylvie.lol",
+				"homepage": "https://sylvie.lol"
+			}
+		}
+	],
+	"contact": {
+		"repo": "https://github.com/sylvxa/mortal-ender-chests",
+		"homepage": "https://modrinth.com/mod/mortal-ender-chests",
+		"issues": "https://github.com/sylvxa/mortal-ender-chests/issues",
+		"discord": "https://discord.gg/5qzrB98sBA"
+	},
+	"license": "MIT",
+	"icon": "assets/mortal-echests/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"lol.sylvie.mortalec.MortalEnderChests"
+		]
+	},
+	"mixins": [
+		"mortal-echests.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.18.4",
+		"minecraft": "~1.21.11",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
