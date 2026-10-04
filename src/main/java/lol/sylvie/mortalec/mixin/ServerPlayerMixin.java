@@ -5,7 +5,9 @@ import lol.sylvie.mortalec.MortalEnderChests;
 import net.minecraft.core.NonNullList;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Prediction;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.PlayerEnderChestContainer;
 import net.minecraft.world.item.ItemStack;
@@ -27,9 +29,13 @@ public abstract class ServerPlayerMixin extends Player {
 	@Shadow
 	public abstract ServerLevel level();
 
+
 	@Unique
     private void dropItemFrom(PlayerEnderChestContainer enderChest, int i) {
-		this.drop(enderChest.getItem(i), true, false);
+		ItemEntity entity = this.createItemStackToDrop(enderChest.getItem(i), true, false);
+		if (entity != null)
+			this.level().addFreshEntity(entity);
+
 		enderChest.setItem(i, ItemStack.EMPTY);
 	}
 
